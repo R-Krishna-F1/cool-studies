@@ -1,0 +1,20 @@
+.layout{display:grid;grid-template-columns:160px minmax(0,1fr);min-height:600px}
+.sidebar{border-right:.5px solid #e5e5e5;padding:1rem 0}
+.nav-label{font-size:10px;font-weight:500;color:#999;text-transform:uppercase;letter-spacing:.06em;padding:0 12px 8px}
+.nav-btn{display:block;width:100%;text-align:left;padding:7px 12px;font-size:12px;font-family:monospace;color:#555;background:transparent;border:none;cursor:pointer;border-left:2px solid transparent;transition:all .15s}
+.nav-btn.active{color:#111;font-weight:500;background:#f5f5f5;border-left-color:#534AB7}
+.nav-btn:hover:not(.active){background:#f5f5f5;color:#111}
+.content{padding:1.25rem 1.5rem;overflow:hidden}
+.panel{display:none}
+.panel.active{display:block}
+.ptitle{font-size:15px;font-weight:500;color:#111;margin-bottom:6px}
+.badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:6px;font-weight:500;margin-bottom:12px}
+.bl{background:#EEEDFE;color:#3C3489}
+.bf{background:#E1F5EE;color:#085041}
+.bb{background:#FAEEDA;color:#633806}
+@media (max-width:820px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{display:flex;gap:4px;overflow:auto;white-space:nowrap;border-right:0;border-bottom:1px solid #e5e5e5;padding:.5rem}
+  .nav-label{display:none}
+  .content{padding:1rem}
+}
