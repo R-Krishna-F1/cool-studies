@@ -5,11 +5,17 @@
 
   if (!sections.length || !nav || !content) return;
 
+  const badgeClassMap = {
+    bf: "fifo",
+    bl: "lifo",
+    bb: "pos"
+  };
+
   const esc = value => String(value)
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
+    .replace(/\"/g, "&quot;")
     .replace(/'/g, "&#39;");
 
   const withBreaks = value => esc(value).replace(/\n/g, "<br>");
@@ -31,10 +37,14 @@
         `)
         .join("");
 
+      const badgeClass = badgeClassMap[section.badgeClass] || section.badgeClass || "pos";
+
       return `
         <section id="${esc(section.id)}" class="panel${index === 0 ? " active" : ""}">
-          <div class="ptitle">${esc(section.title || section.label)}</div>
-          <span class="badge ${esc(section.badgeClass || "bb")}">${esc(section.badge || "")}</span>
+          <div class="panel-head">
+            <div class="panel-name">${esc(section.title || section.label)}</div>
+            <span class="badge ${esc(badgeClass)}"><span class="badge-dot"></span>${esc(section.badge || "")}</span>
+          </div>
           <div class="tabs">
             <button class="tab active" data-tab-target="${esc(section.id)}-props">Properties</button>
             <button class="tab" data-tab-target="${esc(section.id)}-code">Java Code</button>
