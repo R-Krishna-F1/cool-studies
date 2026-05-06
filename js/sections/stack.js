@@ -15,11 +15,42 @@ window.DS_SECTIONS.push({
     ["Peek", "return s[top]"],
     ["Insert/Remove at pos", "Not applicable (LIFO contract)"]
   ],
-  code: `class Stack {
-  int[] s; int top = -1, cap;
-  Stack(int cap){ this.cap = cap; s = new int[cap]; }
-  void push(int x){ if(top < cap - 1) s[++top] = x; }
-  int pop(){ return top == -1 ? -1 : s[top--]; }
-  int peek(){ return top == -1 ? -1 : s[top]; }
+  code: `public class Stack {
+    int[] arr; int top, capacity;
+
+    Stack(int cap) {
+        capacity = cap;
+        arr = new int[capacity];
+        top = -1;
+    }
+
+    void push(int x) {
+        if (top == capacity-1) { System.out.println("Full"); return; }
+        arr[++top] = x;
+    }
+
+    int pop() {
+        if (top == -1) { System.out.println("Empty"); return -1; }
+        return arr[top--];
+    }
+
+    int peek() {
+        if (top == -1) { System.out.println("Empty"); return -1; }
+        return arr[top];
+    }
+
+    void display() {
+        for (int i = 0; i <= top; i++)
+            System.out.print(arr[i] + " ");
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Stack s = new Stack(5);
+        s.push(10); s.push(20); s.push(30);
+        s.display();              // 10 20 30
+        System.out.println(s.pop()); // 30
+        s.display();              // 10 20
+    }
 }`
 });

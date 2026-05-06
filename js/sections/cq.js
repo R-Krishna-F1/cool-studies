@@ -15,14 +15,48 @@ window.DS_SECTIONS.push({
     ["Display", "i=front; loop until i==rear"],
     ["Insert/Remove at pos", "Not applicable (FIFO contract)"]
   ],
-  code: `class CircularQueue {
-  int[] q; int front = -1, rear = -1, cap;
-  CircularQueue(int cap){ this.cap = cap; q = new int[cap]; }
-  void enqueue(int x){
-    if((rear + 1) % cap == front) return;
-    if(front == -1) front = rear = 0;
-    else rear = (rear + 1) % cap;
-    q[rear] = x;
-  }
+  code: `public class CircularQueue {
+    int[] q; int front, rear, cap;
+
+    CircularQueue(int c) {
+        cap = c; q = new int[cap]; front = rear = -1;
+    }
+
+    boolean isFull()  { return front == (rear+1) % cap; }
+    boolean isEmpty() { return front == -1; }
+
+    void enqueue(int x) {
+        if (isFull()) { System.out.println("Full"); return; }
+        if (front == -1) front = 0;
+        rear = (rear+1) % cap;
+        q[rear] = x;
+    }
+
+    int dequeue() {
+        if (isEmpty()) { System.out.println("Empty"); return -1; }
+        int val = q[front];
+        if (front == rear) { front = rear = -1; }
+        else front = (front+1) % cap;
+        return val;
+    }
+
+    void display() {
+        if (isEmpty()) { System.out.println("Empty"); return; }
+        int i = front;
+        while (true) {
+            System.out.print(q[i] + " ");
+            if (i == rear) break;
+            i = (i+1) % cap;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        CircularQueue cq = new CircularQueue(4);
+        cq.enqueue(10); cq.enqueue(20); cq.enqueue(30);
+        cq.dequeue();
+        cq.enqueue(40); cq.enqueue(50);
+        cq.display(); // 20 30 40 50
+    }
 }`
 });

@@ -15,17 +15,40 @@ window.DS_SECTIONS.push({
     ["Display", "for i=front..rear print q[i]"],
     ["Insert/Remove at pos", "Not applicable (FIFO contract)"]
   ],
-  code: `class Queue {
-  int[] q; int front = -1, rear = -1, cap;
-  Queue(int cap){ this.cap = cap; q = new int[cap]; }
-  void enqueue(int x){
-    if(rear == cap - 1) return;
-    if(front == -1) front = 0;
-    q[++rear] = x;
-  }
-  int dequeue(){
-    if(front == -1 || front > rear) return -1;
-    return q[front++];
-  }
+  code: `public class Queue {
+    int[] queue; int front, rear, capacity;
+
+    Queue(int cap) {
+        capacity = cap;
+        queue = new int[capacity];
+        front = rear = -1;
+    }
+
+    void enqueue(int x) {
+        if (rear == capacity-1) { System.out.println("Full"); return; }
+        if (front == -1) front = 0;
+        queue[++rear] = x;
+    }
+
+    int dequeue() {
+        if (front == -1 || front > rear) {
+            System.out.println("Empty"); return -1;
+        }
+        return queue[front++];
+    }
+
+    void display() {
+        for (int i = front; i <= rear; i++)
+            System.out.print(queue[i] + " ");
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Queue q = new Queue(5);
+        q.enqueue(10); q.enqueue(20); q.enqueue(30);
+        q.display();    // 10 20 30
+        q.dequeue();
+        q.display();    // 20 30
+    }
 }`
 });
